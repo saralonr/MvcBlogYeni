@@ -1,0 +1,59 @@
+﻿@model IPagedList<MvcBlogYeni.Models.ORM.Makale>
+@{
+    ViewBag.Title = "MvcBlog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="leftbar_content">
+        <h2>En Son Blog Yazıları</h2>
+        @foreach (var item in Model)
+        {
+            <div class="single_stuff wow fadeInDown">
+                <div class="single_stuff_img"> <a href="/Home/MakaleDetay/@item.MakaleID"><img src="@item.Foto" alt=""></a> </div>
+                <div class="single_stuff_article">
+                    <div class="single_sarticle_inner">
+                        <a class="stuff_category" href="@item.KategoriID">@item.Kategori.KategoriAdi</a>
+                        <div class="stuff_article_inner">
+                            <span class="stuff_date">@item.Tarih.Value.ToString("MMM") <strong>@item.Tarih.Value.Day</strong></span>
+                            <h2><a href="/Home/MakaleDetay/@item.MakaleID">@item.Baslik</a></h2>
+                           @{
+                               if (item.Icerik.Length>250)
+                               {
+                                <p>@item.Icerik.Substring(0, 250)...<a href="/Home/MakaleDetay/@item.MakaleID" class="btn btn-primary btn-xs">Devamını Gör</a></p>
+                               }
+                               else
+                               {
+                                <p>@item.Icerik<a href="/Home/MakaleDetay/@item.MakaleID" class="btn btn-primary btn-xs">Devamını Gör</a></p>
+                               }
+                             }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @{
+            if (Session["uyeid"] == null)
+            {
+                    <div class="media-body text-center center-block">
+                        <h4>Yeni bir makale yazmak için kullanıcı girişi yapmalısınız.</h4>
+                        <p><a class="btn btn-danger" href="/Uye/Login/">Üye Girişi Yap</a></p>
+                    </div>
+            }
+            else
+            {
+                
+                    <div class="media-body text-center center-block">
+                        <h4>Yeni bir makale yazmak ister misiniz?</h4>
+                        <p><a class="btn btn-success" href="/Home/YeniMakale/">Makale Yaz</a></p>
+                    </div>
+            }
+        }
+        <div class="stuffpost_paginatinonarea wow slideInLeft">
+            <div class="pagedList pagination-lg">
+                @Html.PagedListPager(Model, Page => Url.Action("Index", new { Page }), PagedListRenderOptions.Classic)
+            </div>
+        </div>
+    </div>
+</div>
+

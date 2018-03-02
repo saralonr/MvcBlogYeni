@@ -1,0 +1,105 @@
+﻿@model MvcBlogYeni.Models.ORM.Uye
+
+@{
+    ViewBag.Title = "Profil Düzenleme";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row" style="padding-right:2%;padding-left:2%">
+    <div class="panel panel-default">
+        <h2 class="blue_bg" style="float:left; width:100%; border-bottom:1px solid #e3e3e3; border-top:1px solid #e3e3e3; color:#fff; font-size:16px; font-weight:bold; margin:0; padding:5px 25px; line-height:32px">Üye Kayıt</h2>
+        <div class="panel-body">
+            <div class="row main">
+                <div class="main-login main-center">
+                    <form  method="post" action="/Uye/Edit/@Model.UyeID" enctype="multipart/form-data">
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            <label for="name" class="cols-sm-2 control-label">Kullanıcı Adınız</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" disabled name="KullaniciAdi" id="KullaniciAdi" value="@Model.KullaniciAdi" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="cols-sm-2 control-label">Ad Soyad</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" name="AdSoyad" id="AdSoyad" value="@Model.AdSoyad"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="username" class="cols-sm-2 control-label">E-mail Adresi</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                                    <input type="email" class="form-control" name="Email" id="Email" value="@Model.Email" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="username" class="cols-sm-2 control-label">Fotoğraf</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-photo fa" aria-hidden="true"></i></span>
+                                    <input class="img-circle img-responsive img-center" width="100" height="100" type="image" name="mevcutFoto" src="@Model.Foto" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="username" class="cols-sm-2 control-label">Üye Fotoğrafı</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-photo fa" aria-hidden="true"></i></span>
+                                    <input type="file" name="Foto" id="Foto" accept=".jpeg,.png,.gif,.jpg,.JPEG" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="cols-sm-2 control-label">Şifre</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                    <input type="password" class="form-control" name="Sifre" id="Sifre" placeholder="Şifreniz" maxlength="15"/>
+                                </div>
+                                <div class="alerts alert-danger" id="editpasserror" style="display:none" ><span style="font-size:12px">Şifreniz 6 karakterden az olamaz.</span></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm" class="cols-sm-2 control-label">Hakkınızda Kısa Bilgi</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                    <textarea class = "form-control" value="@Model.UyeHakkinda" rows = "4" ></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <label for="confirm" class="cols-sm-2 control-label">Sistemdeki Eski Şifreniz</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                    <input type="password" class="form-control" name="confirm" id="confirm" placeholder="Değişikliklerin onaylanması için şifreniz" maxlength="15"/>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        @if (TempData["dogrulamahata"] != null)
+                        {
+                            <div class="alerts alert-danger"><span style="font-size:12px">@TempData["dogrulamahata"]</span></div>
+                        }
+                        <div class="form-group ">
+                            <button type="submit" onclick="return editBosMuKontrol()" name="log-me-in" id="edit-submit" tabindex="5" class="btn btn-default btn-block btn-lg login-button">Değişiklikleri Kaydet</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

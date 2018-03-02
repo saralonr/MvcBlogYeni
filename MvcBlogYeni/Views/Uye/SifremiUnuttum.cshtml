@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Şifre Sıfırlama";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row" style="padding-right:2%;padding-left:2%">
+    <div class="panel panel-default">
+        <h2 class="blue_bg" style="float:left; width:100%; border-bottom:1px solid #e3e3e3; border-top:1px solid #e3e3e3; color:#fff; font-size:16px; font-weight:bold; margin:0; padding:5px 25px; line-height:32px">Şifre Sıfırlama</h2>
+        <div class="panel-body">
+            <div class="row main">
+                @if (TempData["mailbasarisiz1"] != null)
+            {
+                    <div class="alerts alert-danger"><span style="font-size:12px">@TempData["mailbasarisiz1"]</span></div>
+                }
+                @if (TempData["mailbasarisiz2"] != null)
+            {
+                    <div class="alerts alert-danger"><span style="font-size:12px">@TempData["mailbasarisiz2"]</span></div>
+                }
+                @if (TempData["mailbasarisiz3"] != null)
+            {
+                    <div class="alerts alert-danger"><span style="font-size:12px">@TempData["mailbasarisiz3"]</span></div>
+                }
+                   <div class="row">
+                       <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                           <form role="form" class="sign_up_form" action="/Uye/SifremiUnuttum" method="post">
+                               <h2 class="sign_up_title">Şifre Sıfırlama</h2>
+                               <p>Lütfen sistemde kayıtlı olan e-mail adresinizi giriniz.</p>
+                               <div class="form-group">
+                                   <input type="email" name="Email" id="Email" class="form-control input-lg" placeholder="E-mail Adresi" tabindex="4">
+                               </div>
+                               <div class="row">
+                                   <input class="btn btn-success btn-block btn-lg col-xs-12 col-md-12" type="submit" id="submit" name="SifreSifirla" value="Şifremi Sıfırla" />
+                               </div>
+                           </form>
+                       </div>
+                   </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,210 @@
+﻿@model MvcBlogYeni.Models.ORM.Makale
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>@Model.Baslik - Makale Düzenleme</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="~/Content/adminassets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="~/Content/adminassets/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link href="~/Content/adminassets/css/sb-admin.css" rel="stylesheet" />
+    <!-- Morris Charts CSS -->
+    <link href="~/Content/adminassets/css/plugins/morris.css" rel="stylesheet" />
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link href="~/Content/Gridmvc.css" rel="stylesheet" />
+    <link href="~/Content/assets/css/bootstrap-tagsinput.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/Admin">Mvc Blog Admin Paneli</a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-user"></i> Profil</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li>
+                        <a href="/Admin/Index/"><i class="fa fa-fw fa-dashboard"></i> Özet</a>
+                    </li>
+                    <li>
+                        <a href="/Admin/Kategoriler"><i class="fa fa-fw fa-bar-chart-o"></i> Kategoriler</a>
+                    </li>
+                    <li>
+                        <a href="/Admin/Makaleler"><i class="fa fa-fw fa-table"></i> Makaleler</a>
+                    </li>
+                    <li>
+                        <a href="/Admin/Uyeler"><i class="fa fa-fw fa-edit"></i> Üyeler</a>
+                    </li>
+                    <li>
+                        <a href="/Admin/Yorumlar"><i class="fa fa-fw fa-desktop"></i> Yorumlar</a>
+                    </li>
+                    <li>
+                        <a href="/Admin/Ayarlar"><i class="fa fa-fw fa-wrench"></i> Site Ayarları</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+        <div id="page-wrapper">
+            <div class="container-fluid" style="width:90%">
+                <div class="row">
+
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="row">
+                            <div class="panel panel-default" style="margin:20px">
+                                <div class="panel-heading" style="background-color:#ff6a00;color:#fff">
+                                    <div class="text-center" style="font-weight:bold;font-size:16px">Yeni Makale</div>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row main" style="padding:30px;margin-top:40px">
+                                        @using (Html.BeginForm("MakaleDuzenle", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <form>
+
+                                                <div class="form-group">
+                                                    <label for="title">Başlık <span class="require">*</span> <small>(Bu alan gerekli)</small></label>
+                                                    <input type="text" class="form-control" name="Baslik" value="@Model.Baslik" />
+                                                    @*<span class="help-block">Field not entered!</span>*@
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="title">Kategoriler <span class="require">*</span><small>(Bu alan gerekli)</small></label>
+                                                    <select class="form-control" name="KategoriID" id="KategoriID" style="width:300px!important">
+
+                                                        @foreach (var item in ViewBag.Kategoriler)
+                                                        {
+                                                            if (item.Text == Model.Kategori.KategoriAdi)
+                                                            {
+                                                                <option value="@item.Value" selected>@item.Text</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="@item.Value"> @item.Text </option>
+                                                            }
+
+                                                        }
+                                                    </select>
+                                                </div>
+                                              
+                                                <div class="form-group">
+                                                    <label for="title">Tarih <span class="require">*</span> <small>(Bu alan gerekli)</small></label>
+                                                    <input size="16" type="text" value="@Model.Tarih" readonly class="form_datetime form-control" name="Tarih" id="Tarih" style="width:300px!important">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="title">Fotoğraf <span class="require">*</span><small>(Bu alan gerekli)</small></label>
+                                                    <input type="file" class="form-control" name="Foto" id="Foto" accept=".jpeg,.png,.gif,.jpg,.JPEG" />
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="title">İçerik <span class="require">*</span><small>(Bu alan gerekli)</small></label>
+                                                    @Html.EditorFor(model => model.Icerik, null, new { @class = "form-control", @value = Model.Icerik })
+                                                    @*<input type="text" class="form-control" name="Icerik" />*@
+                                                </div>
+                                                @{
+                                                    string etikets = "";
+                                                    foreach (MvcBlogYeni.Models.ORM.MakaleEtiket item in Model.MakaleEtiket.ToList())
+                                                    {
+                                                        etikets += item.Etiket.EtiketAdi + ", ";
+                                                    }
+                                                    etikets = etikets.Substring(0, etikets.Length - 2);
+                                                }
+                                                <div class="form-group" style="margin-top:30px">
+                                                    <label for="title">Etiketler</label>
+                                                    <input type="text" data-role="tagsinput" class="bootstrap-tagsinput" name="etiketler" value="@etikets" />
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <p><span class="require">*</span> - gerekli alanlar</p>
+                                                </div>
+
+                                                @if (TempData["fotoboyutbuyuk"] != null)
+                                                {
+                                                    <div style="margin:20px" class="alert alert-danger"><span style="font-size:12px">@TempData["fotoboyutbuyuk"]</span></div>
+                                                }
+
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-primary pull-left btn-lg">
+                                                        Oluştur
+                                                    </button>
+                                                    <a href="/Admin/Makaleler/" class="btn btn-default pull-right btn-lg">
+                                                        Geri Dön
+                                                    </a>
+                                                </div>
+
+                                            </form>
+                                                    }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="~/Content/adminassets/js/jquery.js"></script>
+    <script src="~/Content/assets/js/bootstrap-tagsinput.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Content/adminassets/js/bootstrap.min.js"></script>
+    @*<script src="~/Content/assets/js/custom.js"></script>*@
+    <!-- Morris Charts JavaScript -->
+    <script src="~/Content/adminassets/js/plugins/morris/raphael.min.js"></script>
+    <script src="~/Content/adminassets/js/plugins/morris/morris.min.js"></script>
+    <script src="~/Content/adminassets/js/plugins/morris/morris-data.js"></script>
+    <script src="~/Scripts/gridmvc.min.js"></script>
+    <script src="~/Content/adminassets/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/Content/adminassets/js/bootstrap-datetimepicker.tr.js"></script>
+    <script type="text/javascript">
+        $(".form_datetime").datetimepicker(
+        {
+            format: 'dd-mm-yyyy hh:ii',
+            autoclose: true,
+            startDate: '@DateTime.Now.AddDays(-30).ToShortDateString() 00:00',
+            minuteStep: 5,
+            todayBtn: true
+        });
+    </script>  
+</body>
+</html>

@@ -1,0 +1,414 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="iso-8859-9">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/Content/assets/css/bootstrap.min.css" rel="stylesheet" />
+    @*<link rel="stylesheet" href="~/Content/assets/css/font-awesome.min.css">*@    
+    <link rel="stylesheet" href="~/Content/assets/css/font.css">
+    <link rel="stylesheet" href="~/Content/assets/css/animate.css">
+    <link rel="stylesheet" href="~/Content/assets/css/structure.css">
+    <link rel="stylesheet" href="~/Content/assets/css/login.css" />
+    <link href="~/Content/assets/css/profile.css" rel="stylesheet" />
+    <link href="~/Content/assets/css/register.css" rel="stylesheet" />    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link href="~/Content/assets/css/bootstrap-tagsinput.css" rel="stylesheet" />
+    
+    <!--[if lt IE 9]>
+    <script src="assets/js/html5shiv.min.js"></script>
+    <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        .alerts {
+            border-radius: 2px;
+            width: 70%;
+            margin: 0 auto;
+            margin-top: 2px;
+            text-align: center;
+            height: 25px;
+        }
+
+        .marginbt10 {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-right: 5px;
+        }
+
+        .multi-line {
+            max-width: 100%;
+            width: 100%;
+        }
+
+        .buttons_divider {
+            margin-top: 10%;
+            margin-bottom: 10%;
+            border-bottom: solid #ccc 1px;
+        }
+
+        .sign_up_title {
+            text-align: center;
+            margin-bottom: 5%;
+        }
+
+        .sign_in_but {
+            border-radius: 45%;
+            margin-left: 5px;
+        }
+
+        .sign_up_form {
+            margin-bottom: 30%;
+        }
+
+            .sign_up_form input {
+                border-radius: 0px;
+            }
+
+        .bg-lightgray {
+            background-color: LightGray;
+        }
+
+        p {
+            text-align: center;
+        }
+    </style>
+    <style>
+                .centered-text {
+                    text-align: center;
+                }
+
+                .form-control {
+                    border-radius: 0;
+                    box-shadow: none;
+                    height: auto;
+                }
+
+                .float-label {
+                    font-size: 10px;
+                }
+                /*input[type="text"].form-control,
+        input[type="search"].form-control{
+            border:none;
+            border-bottom:1px dotted #CFCFCF;
+        }*/
+                textarea {
+                    border: 1px dotted #CFCFCF !important;
+                    height: 130px !important;
+                }
+                /*Content Container*/
+                .content-container {
+                    background-color: #fff;
+                    padding: 35px 20px;
+                    margin-bottom: 20px;
+                }
+
+                h1.content-title {
+                    font-size: 32px;
+                    font-weight: 300;
+                    text-align: center;
+                    margin-top: 0;
+                    margin-bottom: 20px;
+                    font-family: 'Open Sans', sans-serif !important;
+                }
+                /*Compose*/
+                .btn-send {
+                    text-align: center;
+                    margin-top: 20px;
+                }
+                /*mail list*/
+                ul.mail-list-new {
+                    padding: 0;
+                    margin: 0;
+                    list-style: none;
+                    margin-top: 30px;
+                }
+                ul.mail-list {
+                    padding: 0;
+                    margin: 0;
+                    list-style: none;
+                    margin-top: 30px;
+                }
+
+                    ul.mail-list li a {
+                        display: block;
+                        border-bottom: 1px dotted #CFCFCF;
+                        padding: 20px;
+                        text-decoration: none;
+                    }
+
+                    ul.mail-list li:last-child a {
+                        border-bottom: none;
+                    }
+
+                    ul.mail-list li a:hover {
+                        background-color: #DBF9FF;
+                    }
+
+                    ul.mail-list li span {
+                        display: block;
+                    }
+
+                        ul.mail-list li span.mail-sender {
+                            font-weight: 600;
+                            color: #8F8F8F;
+                        }
+
+                        ul.mail-list li span.mail-subject {
+                            color: #8C8C8C;
+                        }
+
+                        ul.mail-list li span.mail-message-preview {
+                            display: block;
+                            color: #A8A8A8;
+                        }
+
+                .mail-search {
+                    border-bottom-color: #7FBCC9 !important;
+                }
+    </style>
+    <style>
+    #lean_overlay {
+position: fixed;
+z-index: 10000;
+top: 0px;
+left: 0px;
+height:100%;
+width:100%;
+background: #000;
+display: none;
+}
+ 
+#test {
+width: 600px;
+padding: 30px; 
+display:none;
+background: #FFF;
+border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
+box-shadow: 0px 0px 4px rgba(0,0,0,0.7); -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7); -moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7);
+        
+}
+    </style>
+    <style>
+        .require {
+    color: #666;
+}
+label small {
+    color: #999;
+    font-weight: normal;
+}
+yenimakaletext{
+width:250px;
+}
+    </style>
+</head>
+<body>
+    <div id="preloader">
+        <div id="status">&nbsp;</div>
+    </div>
+    <a class="scrollToTop" href="#"><i class="fa fa-angle-up"></i></a>
+    <header id="header">
+        <div class="container">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                        <a class="navbar-brand" href="/Home/Index/"><span>Mvc</span>Blog</a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav custom_nav">
+                            <li class=""><a href="/Home/Index/">Anasayfa</a></li>
+
+                           
+
+                            @{
+                                if (Session["uyeid"] != null)
+                                {
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">@Session["kullaniciadi"].ToString()</a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="/Uye/Index/@Convert.ToInt32(Session["uyeid"])">Profil</a></li>
+                                            <li><a href="/Uye/Mesajlar/@Convert.ToInt32(Session["uyeid"])">Mesajlar</a></li>
+                                            <li><a href="/Uye/Logout/">Çıkış</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
+                                        <ul class="dropdown-menu message-dropdown">
+                                            <li class="message-preview">
+                                                <a href="#">
+                                                    <div class="media">
+                                                        <span class="pull-left">
+                                                            <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                                        </span>
+                                                        <div class="media-body">
+                                                            <h5 class="media-heading">
+                                                                <strong>John Smith</strong>
+                                                            </h5>
+                                                            <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="message-preview">
+                                                <a href="#">
+                                                    <div class="media">
+                                                        <span class="pull-left">
+                                                            <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                                        </span>
+                                                        <div class="media-body">
+                                                            <h5 class="media-heading">
+                                                                <strong>John Smith</strong>
+                                                            </h5>
+                                                            <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="message-preview">
+                                                <a href="#">
+                                                    <div class="media">
+                                                        <span class="pull-left">
+                                                            <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                                        </span>
+                                                        <div class="media-body">
+                                                            <h5 class="media-heading">
+                                                                <strong>John Smith</strong>
+                                                            </h5>
+                                                            <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="message-footer">
+                                                <a href="#">Read All New Messages</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li><a href="/Uye/Login/">Üye Girişi</a></li>
+                                    <li><a class="yellow_bg" href="/Uye/Create/">Üye Kayıt</a></li>
+                                }
+                            }
+                          
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            @Html.Partial("BlogAraPartial")
+        </div>
+    </header>
+    <section id="contentbody">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-sm-12 col-md-6 col-lg-6">
+                    @RenderBody()
+                </div>
+
+                <div class="col-sm-6 col-md-2 col-lg-2">
+                    <div class="row">
+                        <div class="middlebar_content">
+                            <h2 class="yellow_bg">Popüler Makaleler</h2>
+                            @{
+                                Html.RenderAction("EnPopulerMakaleler", "Home");
+                            }
+
+                            @{
+                                Html.RenderAction("EnPopulerKategoriler", "Home");
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-4">
+                    <div class="row">
+                        <div class="rightbar_content">
+                            @{
+                                Html.RenderAction("EditorunOnerileri", "Home");
+                            }
+                            <div class="single_blog_sidebar wow fadeInUp">
+                                <h2>Popular Posts</h2>
+                                <ul class="middlebar_nav wow">
+                                    <li> <a href="#" class="mbar_thubnail"><img alt="" src="~/Content/images/hot_img1.jpg"></a> <a href="#" class="mbar_title">Sed luctus semper odio aliquam rhoncus</a> </li>
+                                    <li> <a href="#" class="mbar_thubnail"><img alt="" src="~/Content/images/hot_img2.jpg"></a> <a href="#" class="mbar_title">Sed luctus semper odio aliquam rhoncus</a> </li>
+                                    <li> <a href="#" class="mbar_thubnail"><img alt="" src="~/Content/images/hot_img1.jpg"></a> <a href="#" class="mbar_title">Sed luctus semper odio aliquam rhoncus</a> </li>
+                                    <li> <a href="#" class="mbar_thubnail"><img alt="" src="~/Content/images/hot_img1.jpg"></a> <a href="#" class="mbar_title">Sed luctus semper odio aliquam rhoncus</a> </li>
+                                </ul>
+                            </div>
+                            @{
+                                Html.RenderAction("EnPopulerEtiketler", "Home");
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="footer_inner">
+                        <p class="pull-left">Copyright &copy; @DateTime.Now.Year</p>
+                        <p class="pull-right">Developed By Onur Saral</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="~/Content/assets/js/jquery.min.js"></script>
+    <script src="~/Content/assets/js/bootstrap.min.js"></script>
+    <script src="~/Content/assets/js/wow.min.js"></script>
+    <script src="~/Content/assets/js/custom.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script src="~/Content/assets/js/bootstrap-tagsinput.min.js"></script>
+    <script>
+        function bosMuKontrol() {
+            var result = true;
+            var sifre = $("#create-pass").val();
+            var kadi = $("#create-kullaniciadi").val();
+            if (sifre.length < 6 && kadi.length > 6) {
+                $("#passerror").css("display", "block");
+                $("#kadierror").css("display", "none");
+                result = false;
+            }
+            if (kadi.length < 6 && sifre.length > 6) {
+                $("#kadierror").css("display", "block");
+                $("#passerror").css("display", "none");
+                result = false;
+            }
+            if (kadi.length < 6 && sifre.length < 6) {
+                $("#kadierror").css("display", "block");
+                $("#passerror").css("display", "block");
+                result = false;
+            }
+            return result;
+        }
+    </script>
+    <script>
+        function editBosMuKontrol() {
+            var result = true;
+            var sifre = $("#Sifre").val();
+            if (sifre.length < 6) {
+                $("#editpasserror").css("display", "block");
+                result = false;
+            }
+            return result;
+        }
+    </script>
+</body>
+</html>
+
+@*href='javascript:void()'  onclick='yeniMesaj(this)'*@
+
+@*function yeniMesaj(elm) {
+        var msjid = $(elm).attr("data-msj");
+        var adres = "/Uye/YeniMesaj/" + msjid;
+         window.open(adres, "Yeni Mesaj", "width=700,height=500,scrollbars=1");
+        }*@

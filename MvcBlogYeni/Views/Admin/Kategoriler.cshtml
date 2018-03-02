@@ -1,0 +1,74 @@
+﻿@using GridMvc.Html
+@model List<MvcBlogYeni.Models.ORM.Kategori>
+@{
+    ViewBag.Title = "Kategoriler";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel-body">
+                <a href="/Admin/KategoriYeni/" class="btn btn-warning pull-left"><i class="fa fa-plus-circle" aria-hidden="true"></i> Yeni Kategori</a><br /><br />
+                <div class="text-center">
+                    @{
+                        if (TempData["kategorisilindi"] != null)
+                        {
+                            <span class="alert alert-success btn-sm">@TempData["kategorisilindi"]</span>
+                        }
+
+                        else if (TempData["kategorisilmehatasi1"] != null)
+                        {
+                            <span class="alert alert-danger">@TempData["kategorisilmehatasi1"]</span>
+                        }
+
+                        else if (TempData["kategorisilmehatasi2"] != null)
+                        {
+                            <span class="alert alert-danger btn-sm">@TempData["kategorisilmehatasi2"]</span>
+                        }
+                        else if (TempData["kategorieklemebasarili"] != null)
+                        {
+                            <span class="alert alert-success btn-sm">@TempData["kategorieklemebasarili"]</span>
+                        }
+                        else if (TempData["kategoriduzenlebasarili"] != null)
+                        {
+                            <span class="alert alert-success btn-sm">@TempData["kategoriduzenlebasarili"]</span>   
+                        }
+                    }
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" style="background-color:#e88417;color:#fff">
+                    <h3 class="panel-title"><i class="fa fa-bars fa-fw"></i> Kategorilere Ait Bilgiler</h3>
+                </div>
+                <div class="panel-body">
+                    @Html.Grid(Model).Columns(columns =>
+               {
+                        columns.Add(x => x.KategoriID).Titled("Kategori ID");
+                        columns.Add(x => x.KategoriAdi).Titled("Kategori Adı");
+                        columns.Add(x => x.Makale.Count).Titled("Kategorideki Makale Sayısı");
+                        columns.Add()
+                .Encoded(false)
+                .Sanitized(false)
+                .SetWidth(80)
+                .RenderValueAs(o => Html.ActionLink("Düzenle", "KategoriDuzenle", new { id = o.KategoriID }, new { @class = "btn btn-primary" }));
+
+                        columns.Add()
+                .Encoded(false)
+                .Sanitized(false)
+                .SetWidth(80)
+                .RenderValueAs(o => Html.ActionLink("Sil", "KategoriSil", new { id = o.KategoriID }, new { @class = "btn btn-danger" }));
+                        columns.Add()
+                .Encoded(false)
+                .Sanitized(false)
+                .SetWidth(80)
+                .RenderValueAs(o => Html.ActionLink("Detay", "KategoriDetay", new { id = o.KategoriID }, new { @class = "btn btn-default" }));
+                    }).WithPaging(10)
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+</div>

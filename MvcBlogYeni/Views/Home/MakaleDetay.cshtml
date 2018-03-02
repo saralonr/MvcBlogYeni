@@ -1,0 +1,168 @@
+﻿@model MvcBlogYeni.Models.ORM.Makale
+
+@{
+    ViewBag.Title = Model.Baslik;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Content/assets/js/jquery.min.js"></script>
+
+
+<div class="row">
+    <div class="leftbar_content">
+        <h2>Makale</h2>
+        <div class="singlepost_area">
+            <div class="singlepost_content">
+                <a href="#" class="stuff_category">@Model.Kategori.KategoriAdi</a><a href="#" class="stuff_category pull-right">Okunma Sayısı : @Model.Okunma</a>  <span class="stuff_date">@Model.Tarih.Value.ToString("MMM") <strong>@Model.Tarih.Value.Day</strong></span>
+                <h2>@Model.Baslik</h2>
+                <div class="single_stuff_img"><img class="img-center" src="@Model.Foto" alt="@Model.Baslik"></div>
+                <p>@Model.Icerik</p>
+                <div class="singlepage_pagination"><a class="previous_btn" href="#">Önceki</a> <a class="next_btn" href="#">Sonraki</a> </div>
+                <div class="social_area wow fadeInLeft">
+                    <ul>
+                        <li><a href="#"><span class="fa fa-facebook"></span></a></li>
+                        <li><a href="#"><span class="fa fa-twitter"></span></a></li>
+                        <li><a href="#"><span class="fa fa-google-plus"></span></a></li>
+                        <li><a href="#"><span class="fa fa-linkedin"></span></a></li>
+                        <li><a href="#"><span class="fa fa-pinterest"></span></a></li>
+                    </ul>
+                </div>
+                <div class="author">
+                    <a href="/Uye/Index/@Model.UyeID"><img src="@Model.Uye.Foto" alt=""></a>
+                    <div class="author_details">
+                        <h3><a href="/Uye/Index/@Model.UyeID">@Model.Uye.KullaniciAdi</a></h3>
+                        <p>@Model.Uye.UyeHakkinda</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="similar_post_area">
+            <h2 class="text-center">Yorumlar <i class="fa fa-comment"></i></h2>
+
+            @if (Session["uyeid"] != null)
+            {
+                <div class="well">
+                    <h4>Yorum</h4>
+                    <form id="form">
+                        <div class="form-group">
+                            <textarea id="Yorum" name="Yorum" typeof="text" class="form-control" rows="3"></textarea>
+                        </div>
+                        <button type="submit" id="Gonder" name="Gonder" class="btn btn-primary">Yorum Yap</button>
+                    </form>
+                    <div id="yorumsonuc"></div>
+                </div>
+            }
+            else
+            {
+               <div class="well">
+                   <div class="media-body text-center center-block">
+                       <h4>Makaleye yorum yapmak için kullanıcı girişi yapmalısınız.</h4>
+                       <p><a href="/Uye/Login/">Üye Girişi Yap</a></p>
+                   </div>
+               </div>
+            }
+            <hr>
+
+            <ul class="col-lg-12 list-group-item">
+                @{
+                    if (Convert.ToInt32(Session["yetkiid"]) == 2 || Session["yetkiid"] == null)
+                    {
+                        foreach (var item in ViewBag.Yorumlar)
+                        {
+                            <li class="well">
+                                <a class="pull-left" href="#">
+                                    <img width="50" class="img-circle" src="@item.Uye.Foto" alt="@item.Uye.AdSoyad">
+                                </a>
+                                <div class="media-body">
+                                    <h4 class="media-heading" style="margin-left:5px">
+                                        <a href="/Uye/Index/@item.Uye.UyeID">@item.Uye.KullaniciAdi</a>
+                                        <small>@item.Tarih</small>
+                                    </h4>
+                                    <div style="margin-left:5px">
+                                        @item.Icerik @if (Convert.ToInt32(Session["uyeid"]) == item.UyeID)
+                                        {
+                                            <a class="btn btn-danger" href="/Home/YorumSil/@item.YorumID">Sil</a>
+                                        }
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    }
+                }
+                @{ 
+                    if (Convert.ToInt32(Session["yetkiid"]) == 1)
+                    {
+                        foreach (var item in ViewBag.YorumlarForAdmin)
+                        {
+                                <li class="well">
+                                    <a class="pull-left" href="#">
+                                        <img width="50" class="img-circle" src="@item.Uye.Foto" alt="@item.Uye.AdSoyad">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading" style="margin-left:5px">
+                                            <a href="/Uye/Index/@item.Uye.UyeID">@item.Uye.KullaniciAdi</a>
+                                            <small>@item.Tarih</small>
+                                        </h4>
+                                        <div style="margin-left:5px">
+                                            @item.Icerik<br /> <br />
+                                            <a class="btn btn-danger" href="/Home/YorumSil/@item.YorumID">Sil</a>
+                                            @{
+                                                if (item.OnayDurum == false)
+                                                {
+                                                    <a class="btn btn-primary" href="/Home/YorumOnay/@item.YorumID">Onay</a>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </li>
+                        }
+                    }
+                }
+            </ul>
+        </div>
+        <br />
+        <div class="similar_post_area" style="margin-top:10px">
+            <h2>Beğenebileceğiniz Diğer Blog Yazıları <i class="fa fa-thumbs-o-up"></i></h2>
+            <ul class="featured_nav similarpost_nav wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;">
+                @foreach (var item in ViewBag.Makaleler)
+                {
+                    <li>
+                        <a href="/Home/MakaleDetay/@item.MakaleID" class="featured_img"><img alt="" src="@item.Foto"></a>
+                        <div class="featured_title"> <a href="#" class="">@item.Baslik</a> </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    
+    $(document).ready(function() {
+        $("#form").submit(function(e){
+            var yorumunuz = $("#Yorum").val();
+            if (yorumunuz.length==0 || yorumunuz.length > 500) {
+                $("#yorumsonuc").empty();
+                $("#yorumsonuc").append("<span class='text-center'>Yorum içeriğindeki karakter sayısı 500'den fazla olmamalıdır.</span>");
+                e.preventDefault();
+            }
+            else {
+                var yrm = new Object();
+                yrm.Icerik = $("#Yorum").val();
+                yrm.MakaleID = @Model.MakaleID;
+                $.ajax({
+                    url:'/Home/YorumYap/',
+                    data: yrm,
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data == "Basarili") {
+                            alert("Yorumunuz editör onayına gönderildi.");
+                        };
+                    }})
+            }
+        });
+    });
+</script>

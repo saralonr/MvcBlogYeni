@@ -1,0 +1,33 @@
+﻿@model List<MvcBlogYeni.Models.ORM.Bildirim>
+@{
+    ViewBag.Title = "Bildirimler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row" style="padding-right:2%;padding-left:2%">
+    <div class="panel panel-default">
+        <h2 class="limeblue_bg" style="float:left; width:100%; border-bottom:1px solid #e3e3e3; border-top:1px solid #e3e3e3; color:#fff; font-size:16px; font-weight:bold; margin:0; padding:5px 25px; line-height:32px"><i class="fa fa-bell" aria-hidden="true"></i> Bildirimler</h2>
+        <div class="panel-body">
+            <ul class="mail-list-new">
+                @foreach (var item in Model)
+                {
+                    <li style="border:1px solid #e3e3e3;margin-top:5px;border-radius:5px;">
+                        <div class="panel-default">
+                            @*<span class='mail-sender' style="background-color:#ededed;margin-top:8px;margin-bottom:5px;margin-left:5px;border-bottom:1px solid #e3e3e3">@item.BildirimTur.Tur</span>
+                            <span class='mail-message-preview' style="margin-top:8px;margin-bottom:5px;margin-left:5px">@Html.Raw(item.BildirimIcerik)</span>*@
+                            <div class="panel-heading" style="height:40px;background-color:#eee">
+                                <span><b><i class="fa fa-flag" aria-hidden="true"></i> @item.BildirimTur.Tur</b></span>
+                            </div>
+                            <div class="panel-body">
+                                @Html.Raw(item.BildirimIcerik)
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+

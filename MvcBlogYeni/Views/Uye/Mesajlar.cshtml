@@ -1,0 +1,168 @@
+﻿@model List<MvcBlogYeni.Models.ORM.Mesaj>
+@{
+    ViewBag.Title = "Mesaj Kutusu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    int gelenkutusu = 0; int gidenkutusu = 0;
+}
+@foreach (var item in Model)
+{
+    if (item.AliciID == Convert.ToInt32(Session["uyeid"]))
+    {
+        gelenkutusu += 1;
+    }
+
+    else if (item.GondericiID == Convert.ToInt32(Session["uyeid"]))
+    {
+        gidenkutusu += 1;
+    }
+}
+
+<div class="row" style="padding-right:2%;padding-left:2%">
+    <div class="panel panel-default">
+        <h2 class="blue_bg" style="float:left; width:100%; border-bottom:1px solid #e3e3e3; border-top:1px solid #e3e3e3; color:#fff; font-size:16px; font-weight:bold; margin:0; padding:5px 25px; line-height:32px">Mesaj Kutusu</h2>
+        <div class="panel-body">
+
+            <div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal içeriği-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Yeni Mesaj</h4>
+                        </div>
+                        <form role="form" class="form-horizontal" method="post" action="/Uye/YeniMesaj/">
+                            <div class="modal-body">
+
+                                <div class="form-group">
+                                    <label class="col-sm-2">Kime</label>
+                                    <div class="col-sm-10"><input type="text" id="inputTo" class="form-control" disabled/><input name="AliciID" type="text" id="AliciID" hidden /></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2">Konu Başlığı</label>
+                                    <div class="col-sm-10"><input type="text" name="Baslik" class="form-control" id="inputSubject"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-12">Mesaj</label>
+                                    <div class="col-sm-12"><textarea class="form-control" name="Icerik" id="inputBody" rows="5"></textarea></div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Kapat</button>
+                                <input type="submit" class="btn btn-warning pull-left" value="Gönder">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="btn-compose text-center">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <button id="gelenkutu" click="glnGetir()" class="btn btn-default marginbt10" type="button">
+                            <i class="fa fa-envelope" aria-hidden="true"></i> Gelen Kutusu
+                            <span class="label label-success">
+                                @gelenkutusu
+                            </span>
+                        </button>
+                    </li>
+                    <li>
+                        <button id="gidenkutu" click="gdnGetir()" class="btn btn-default marginbt10" type="button">
+                            <i class="fa fa-envelope-o" aria-hidden="true"></i> Gönderilenler
+                            <span class="label label-success">
+                                @gidenkutusu
+                            </span>
+                        </button>
+                    </li>
+                    <li>
+                        <button id="searchButon" click="ara()" class="btn btn-default marginbt10 pull-right" type="button">
+                            <i class="fa fa-search" aria-hidden="true"></i> Arama Yap
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <input id="searchText" type="search" placeholder="Mesaj Arama" class="form-control mail-list" />
+            
+            <ul class="mail-list" id="mesajListesi">
+                <!-- Buraya mesajlar gelecek -->
+            </ul>
+        </div>
+      
+    </div>
+</div>
+
+<script src="~/Content/assets/js/jquery.min.js"></script>
+<script>
+        $(document).ready(function glnGetir() {
+            $("#gelenkutu").click(function () {
+                $("#mesajListesi").empty();
+                glnkutuDoldur();
+            });
+        });
+        $(document).ready(function gdnGetir() {
+            $("#gidenkutu").click(function () {
+                $("#mesajListesi").empty();
+                gdnkutuDoldur();
+            })
+        });
+        function gdnkutuDoldur() {
+            $.ajax({
+                type: 'GET',
+                url: '/Uye/GidenMesajlariGetir/',
+                dataType: 'JSON',
+                success: function (data) {
+                    $.each(data, function (i, item) {
+                        $("#mesajListesi").append("<li><a id='gdnmesaj' ><span class='mail-sender'>" + item.KullaniciAdiA + " -> " + item.KullaniciAdiG + "</span><span class='mail-subject'>" + item.Baslik + "</span><span class='mail-message-preview'>" + item.Icerik + "</span></a></li>");
+                    });
+                }
+            });
+        }
+        function yeniMesaj(elm) {
+            $($(elm).children(".mail-sender").data("target")).modal("show");
+            $("#inputTo").val(""); $("#inputSubject").val(""); $("#inputBody").val("");
+
+            var icerik = $(elm).children("span.mail-sender").text();
+            var msjid = $(elm).attr("data-msj");
+            $("#AliciID").val(msjid);
+            $("#inputTo").val(icerik);
+        }
+        function glnkutuDoldur() {
+            $.ajax({
+                type: 'GET',
+                url: '/Uye/GelenMesajlariGetir/',
+                dataType: 'JSON',
+                success: function (data) {
+                    $.each(data, function (i, item) {
+                        $("#mesajListesi").append("<li><a id='glnmesaj' href='javascript:void()' onclick='yeniMesaj(this)'  data-msj='" + item.GondericiID + "' ><span class='mail-sender' data-toggle='modal' data-target='#myModal'  >" + item.KullaniciAdi + "</span><span class='mail-subject'>" + item.Baslik + "</span><span class='mail-message-preview'>" + item.Icerik + "</span></a></li>");
+                    });
+                }
+            });
+        }
+        $(document).ready(glnkutuDoldur());
+</script>
+<script>
+        $(document).ready(function ara() {
+            $("#searchButon").click(function () {
+                $("#mesajListesi").empty();
+                arama();
+            });
+        });
+        function arama() {
+            var txt = $("#searchText").val();
+                $.ajax({
+                    type: 'post',
+                    url: '/Uye/MesajArama/',
+                    data: {mesaj : JSON.stringify(txt)},
+                    dataType: 'JSON',
+                    success: function (data) {
+                        $.each(data, function (i, item) {
+                            $("#mesajListesi").append("<li><a><span class='mail-sender' data-toggle='modal' data-target='#myModal'  >" + item.KullaniciAdiG +" -> "+item.KullaniciAdiA+ "</span><span class='mail-subject'>" + item.Baslik + "</span><span class='mail-message-preview'>" + item.Icerik + "</span></a></li>");
+                        });
+                    }
+                });
+        }
+</script>

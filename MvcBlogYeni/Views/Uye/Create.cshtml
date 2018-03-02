@@ -1,0 +1,169 @@
+﻿@model MvcBlogYeni.Models.ORM.Uye
+
+@{
+    ViewBag.Title = "Yeni Üye Kayıt";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row" style="padding-right:2%;padding-left:2%">
+    <div class="panel panel-default">
+        <h2 class="blue_bg" style="float:left; width:100%; border-bottom:1px solid #e3e3e3; border-top:1px solid #e3e3e3; color:#fff; font-size:16px; font-weight:bold; margin:0; padding:5px 25px; line-height:32px">Üye Kayıt</h2>
+        <div class="panel-body">
+            <div class="row main">
+                <div class="main-login main-center">
+                    @using (Html.BeginForm("Create", "Uye", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <form>
+                            <div class="form-group">
+                                <label for="name" class="cols-sm-2 control-label">Kullanıcı Adınız</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                        @Html.EditorFor(model => model.KullaniciAdi, new { htmlAttributes = new {  @class = "form-control", @required = "required"  ,@placeholder = "5-16 karakter arası bir kullanıcı adı seçiniz" ,@id="create-kullaniciadi", @maxlength = "15" } })
+                                        @*@Html.ValidationMessageFor(model => model.KullaniciAdi, "", new { @class = "text-danger" })*@
+                                    </div>
+                                    @if (TempData["kullanicivar"] != null)
+                                    {
+                                        <div class="alerts alert-danger"><span style="font-size:12px">@TempData["kullanicivar"]</span></div>
+                                    }
+                                    <div class="alerts alert-danger" id="kadierror" hidden><span style="font-size:12px">Kullanıcı adınız 6 karakterden az olamaz.</span></div>
+                                    
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="cols-sm-2 control-label">Ad Soyad</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                        @Html.EditorFor(model => model.AdSoyad, new { htmlAttributes = new {  @class = "form-control", @required = "required", @placeholder = "Adınızı soyadınızı girin", @maxlength = "45" } })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" class="cols-sm-2 control-label">E-mail Adresi</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control",@type="email", @required = "required", @placeholder = "E-mail adresinizi girin", @maxlength = "45" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="username" class="cols-sm-2 control-label">Üye Fotoğrafı</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-photo fa" aria-hidden="true"></i></span>
+                                        <input type="file" name="Foto" id="Foto" accept=".jpeg,.png,.gif,.jpg,.JPEG" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="cols-sm-2 control-label">Şifre</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                        @Html.EditorFor(model => model.Sifre, new { htmlAttributes = new { @class ="form-control", @type="password" , @required = "required", @placeholder = "5-16 karakter arası bir şifre seçiniz", @id="create-pass", @maxlength = "15" } })
+                                    </div>
+                                    <div class="alerts alert-danger" id="passerror" hidden><span style="font-size:12px">Şifreniz 6 karakterden az olamaz.</span></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirm" class="cols-sm-2 control-label">Hakkınızda Kısa Bilgi</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                        @Html.EditorFor(model => model.UyeHakkinda, new { htmlAttributes = new { @class = "form-control", placeholder = "Hakkınızda bir kaç satırlık kısa bilgi girin", rows = "4" } })
+                                    </div>
+                                </div>
+                            </div>
+                            @if (TempData["captchahata"] != null)
+                            {
+                                <div class="alerts alert-danger"><span style="font-size:12px">@TempData["captchahata"]</span></div>
+                            }
+                            <div class="g-recaptcha" data-sitekey="6Le4UxoUAAAAALAEWvhaGTFX9GrW8lhoEimgz0VA"></div>
+                            
+                            <div class="form-group ">
+                                <button type="submit" onclick="return bosMuKontrol()" name="log-me-in" id="create-submit" tabindex="5" class="btn btn-default btn-block btn-lg login-button">Kayıt Ol</button>
+                            </div>
+
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+@*@using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Uye</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.KullaniciAdi, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.KullaniciAdi, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.KullaniciAdi, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Sifre, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Sifre, new { htmlAttributes = new { @class = "form-control", @type="password" } })
+                    @Html.ValidationMessageFor(model => model.Sifre, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AdSoyad, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.AdSoyad, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AdSoyad, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Foto, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Foto, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Foto, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.UyeHakkinda, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UyeHakkinda, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UyeHakkinda, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }*@
+

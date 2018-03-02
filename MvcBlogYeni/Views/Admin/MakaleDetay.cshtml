@@ -1,0 +1,130 @@
+﻿@model MvcBlogYeni.Models.ORM.Makale
+@{
+    ViewBag.Title = Model.Baslik + " Makalesi Detay";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+           
+            <div class="row">
+               <div class="col-lg-12">
+                   <a href="/Admin/MakaleDuzenle/@Model.MakaleID" class="btn btn-warning pull-left"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Düzenle</a>
+                   <a href="/Admin/MakaleSil/@Model.MakaleID" style="margin-left:10px" class="btn btn-danger pull-left"><i class="fa fa-remove" aria-hidden="true"></i> Sil</a>
+                   <a href="/Admin/Makaleler/" class="btn btn-default pull-right"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Geri Dön</a>
+               </div>
+                <div class="col-lg-12">
+                    <h2 class="page-header pull-left">
+                        @Model.Baslik
+                    </h2>
+                </div>
+            </div>
+
+            <!-- start:real estates detail -->
+            <div class="row" id="real-estates-detail">
+                <div class="col-lg-4 col-md-4 col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <header class="panel-title">
+                                <div class="text-center">
+                                    <strong>Yazar</strong>
+                                </div>
+                            </header>
+                        </div>
+                        <div class="panel-body">
+                            <div class="text-center" id="author">
+                                <img src="@Model.Uye.Foto" width="225" height="225">
+                                <h3><a href="/Admin/UyeDetay/@Model.UyeID">@Model.Uye.KullaniciAdi</a></h3>
+                                @*<small class="label label-warning">@Model.Uye.AdSoyad</small>*@
+                                <br />
+                                <table class="table table-th-block">
+                                    <tbody>
+                                        <tr><td class="active">Email:</td><td>@Model.Uye.Email</td></tr>
+                                        <tr><td class="active">Yetki:</td><td>@Model.Uye.Yetki.Yetki1</td></tr>
+                                    </tbody>
+                                </table>
+                                <p>@Model.Uye.UyeHakkinda</p>
+                                @*<p class="sosmed-author">
+                                    <a href="#"><i class="fa fa-facebook" title="Facebook"></i></a>
+                                    <a href="#"><i class="fa fa-twitter" title="Twitter"></i></a>
+                                    <a href="#"><i class="fa fa-google-plus" title="Google Plus"></i></a>
+                                    <a href="#"><i class="fa fa-linkedin" title="Linkedin"></i></a>
+                                                                </p>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-8 col-xs-12">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <ul id="myTab" class="nav nav-pills">
+                                <li class="active"><a href="#photos" data-toggle="tab">Fotoğraf</a></li>
+                                <li class=""><a href="#detail" data-toggle="tab">Detaylar</a></li>
+                                @*<li class=""><a href="#contact" data-toggle="tab">Contact</a></li>*@
+                            </ul>
+                            <div id="myTabContent" class="tab-content">
+                                <div class="tab-pane fade active in" id="photos">
+                                    <br>
+                                    <div class="flexslider">
+                                        <img src="@Model.Foto" draggable="false" width="100%" height="100%">
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="detail">
+                                    <p></p>
+                                    <h4>@Model.Baslik</h4>
+                                    <table class="table table-th-block">
+                                        <tbody>
+                                            <tr><td class="active">Kategori:</td><td>@Model.Kategori.KategoriAdi</td></tr>
+                                            <tr><td class="active">Yorum Sayısı:</td><td>@Model.Yorum.Count</td></tr>
+                                            <tr><td class="active">Tarih:</td><td>@Model.Tarih</td></tr>
+                                            <tr><td class="active">Okunma Sayısı:</td><td>@Model.Okunma</td></tr>
+                                            <tr><td class="active">Onaylı Mı:</td><td>@Model.OnayDurum</td></tr>
+                                            <tr><td class="active">Aktif Mi:</td><td>@Model.Durum</td></tr>
+                                        </tbody>
+                                    </table>
+                                    <p>@Model.Icerik</p>
+                                </div>
+                                @*<div class="tab-pane fade" id="contact">
+                                        <p></p>
+                                        <form role="form">
+                                            <div class="form-group">
+                                                <label>Full name</label>
+                                                <input type="text" class="form-control rounded" placeholder="Enter full name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Phone number</label>
+                                                <input type="text" class="form-control rounded" placeholder="(000)0000000">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Email address</label>
+                                                <input type="email" class="form-control rounded" placeholder="Enter email">
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox"> Buy this property
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Message to agent</label>
+                                                <textarea class="form-control rounded" style="height: 100px;"></textarea>
+                                                <p class="help-block">Please be polite and professional</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-danger" data-original-title="" title="">Send message</button>
+                                            </div>
+                                        </form>
+                                    </div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

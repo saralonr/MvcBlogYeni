@@ -1,0 +1,14 @@
+﻿@model IEnumerable<MvcBlogYeni.Models.ORM.Kategori>
+@{
+    Layout = null;
+}
+
+<div class="popular_categori  wow fadeInUp">
+    <h2 class="limeblue_bg">En Popüler Kategoriler</h2>
+    <ul class="poplr_catgnva">
+        @foreach (var item in Model)
+        {
+            <li><a href="#">@item.KategoriAdi (@item.Makale.Count)</a></li>
+        }
+    </ul>
+</div>

@@ -1,0 +1,130 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>@ViewBag.Title</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="~/Content/adminassets/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link href="~/Content/adminassets/css/sb-admin.css" rel="stylesheet" />
+    <!-- Morris Charts CSS -->
+    <link href="~/Content/adminassets/css/plugins/morris.css" rel="stylesheet" />
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link href="~/Content/Gridmvc.css" rel="stylesheet" />
+ <style>
+
+
+#real-estates-detail #author img {
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    -o-border-radius: 100%;
+    border-radius: 100%;
+    border: 5px solid #ecf0f1;
+    margin-bottom: 10px;
+}
+
+#real-estates-detail .sosmed-author i.fa {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #bdc3c7;
+    color: #bdc3c7;
+    padding-top: 6px;
+    margin-top: 10px;
+}
+
+.panel-default .panel-heading {
+    background-color: #fff;
+}
+
+#real-estates-detail .slides li img {
+    height: 450px;
+}
+ </style>
+</head>
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/Admin/">Mvc Blog Admin Paneli</a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-user"></i> Profil</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li>
+                        <a href="/Home/Index/"><i class="fa fa-fw fa-dashboard"></i> Anasayfa</a>
+                    </li>
+                    <li>
+                        <a href="/Admin/Index/"><i class="fa fa-fw fa-dashboard"></i> Özet</a>
+                    </li>
+                    <li>
+                        <a href="/Admin/Kategoriler"><i class="fa fa-fw fa-bar-chart-o"></i> Kategoriler</a>
+                    </li>
+                    <li>
+                        <a href="/Admin/Makaleler"><i class="fa fa-fw fa-table"></i> Makaleler</a>
+                    </li>
+                    <li>
+                        <a href="/Admin/Uyeler"><i class="fa fa-fw fa-edit"></i> Üyeler</a>
+                    </li>
+                    <li>
+                        <a href="/Admin/Yorumlar"><i class="fa fa-fw fa-desktop"></i> Yorumlar</a>
+                    </li>
+                    <li>
+                        <a href="/Admin/Ayarlar"><i class="fa fa-fw fa-wrench"></i> Site Ayarları</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+        <div id="page-wrapper">
+            @RenderBody()
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="~/Content/adminassets/js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Content/adminassets/js/bootstrap.min.js"></script>
+    <!-- Morris Charts JavaScript -->
+    <script src="~/Content/adminassets/js/plugins/morris/raphael.min.js"></script>
+    <script src="~/Content/adminassets/js/plugins/morris/morris.min.js"></script>
+    <script src="~/Content/adminassets/js/plugins/morris/morris-data.js"></script>
+    <script src="~/Scripts/gridmvc.min.js"></script>
+</body>
+</html>

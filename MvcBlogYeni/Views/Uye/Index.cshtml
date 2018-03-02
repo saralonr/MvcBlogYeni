@@ -1,0 +1,102 @@
+﻿@model MvcBlogYeni.Models.ORM.Uye
+@{
+    ViewBag.Title = Model.KullaniciAdi + " Profili";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row" style="padding-right:2%;padding-left:2%">
+    <div class="panel panel-default">
+        <h2 class="blue_bg" style="float:left; width:100%; border-bottom:1px solid #e3e3e3; border-top:1px solid #e3e3e3; color:#fff; font-size:16px; font-weight:bold; margin:0; padding:5px 25px; line-height:32px">Üye Profili</h2>
+        @{
+            if (Convert.ToInt32(Session["uyeid"]) == Model.UyeID)
+            {
+                <a href="/Uye/Edit/@Session["uyeid"]" target="_parent" class="btn btn-default pull-right" type="button" name="Edit" style="margin:5px">Profili Düzenle</a>
+                <a href="/Uye/Mesajlar/@Session["uyeid"]" target="_parent" class="btn btn-default pull-left" type="button" name="Mesajlar" style="margin:5px">Mesajlar</a>
+            }
+            else if (Convert.ToInt32(Session["uyeid"]) != Model.UyeID && Session["uyeid"]!=null)
+            {
+                <a href="/Uye/MesajGonderme/@Model.UyeID" target="_parent" class="btn btn-default pull-right" type="button" name="Mesaj" style="margin:5px">Mesaj Gönder</a>
+
+                if (Model.UyeArkadas1.FirstOrDefault(x => x.Uye1ID == Convert.ToInt32(Session["uyeid"]) && x.Uye2ID == Model.UyeID && x.Durum == false) != null)
+                {
+                    <a href="/Uye/ArkadaslikIptal/@Model.UyeID" target="_parent" class="btn btn-default pull-left" name="OnayBekliyor" style="margin:5px">Arkadaşlık Onayı Bekliyor</a>
+                }
+                else if (Model.UyeArkadas.FirstOrDefault(x => x.Uye2ID == Convert.ToInt32(Session["uyeid"]) && x.Uye1ID == Model.UyeID && x.Durum == false) != null)
+                {
+                    <a href="/Uye/Onayla/@Model.UyeID" target="_parent" class="btn btn-default pull-left" style="margin:5px">Arkadaşlığı Onayla</a>
+                }
+                else if ((Model.UyeArkadas.FirstOrDefault(x => ((x.Uye1ID == Convert.ToInt32(Session["uyeid"]) && x.Uye2ID == Model.UyeID) || (x.Uye2ID == Convert.ToInt32(Session["uyeid"]) && x.Uye1ID == Model.UyeID)) && x.Durum == true) != null) || (Model.UyeArkadas1.FirstOrDefault(x => ((x.Uye1ID == Convert.ToInt32(Session["uyeid"]) && x.Uye2ID == Model.UyeID) || (x.Uye2ID == Convert.ToInt32(Session["uyeid"]) && x.Uye1ID == Model.UyeID)) && x.Durum == true) != null))
+                {
+                    <a href="/Uye/ArkadasCikar/@Model.UyeID" target="_parent" class="btn btn-default pull-left" type="button" name="ArkadasCikar" style="margin:5px">Arkadaşlıktan Çıkar</a>
+                }
+                else if((Model.UyeArkadas.FirstOrDefault(x => (x.Uye1ID == Convert.ToInt32(Session["uyeid"]) && x.Uye2ID == Model.UyeID) || (x.Uye2ID == Convert.ToInt32(Session["uyeid"]) && x.Uye1ID == Model.UyeID))== null) || (Model.UyeArkadas1.FirstOrDefault(x => (x.Uye1ID == Convert.ToInt32(Session["uyeid"]) && x.Uye2ID == Model.UyeID) || (x.Uye2ID == Convert.ToInt32(Session["uyeid"]) && x.Uye1ID == Model.UyeID)) == null))
+                {
+                    <a href="/Uye/ArkadasEkle/@Model.UyeID" target="_parent" class="btn btn-default pull-left" type="button" name="ArkadasEkle" style="margin:5px">Arkadaş Olarak Ekle</a>
+                }
+
+            }
+
+        }
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
+                            <img class="img-circle img-responsive" src="@Model.Foto">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="centered-text col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
+                            <div itemscope="" itemtype="http://schema.org/Person">
+                                <h2> <span itemprop="name">@Model.AdSoyad</span></h2>
+                                <p itemprop="jobTitle">Kullanıcı Adı : @Model.KullaniciAdi</p>
+                                <p><span itemprop="affiliation">Yetki : @Model.Yetki.Yetki1 </span></p>
+                                @{
+                                    if (Session["uyeid"] != null)
+                                    {
+                                        <p itemprop="email"> <i class="fa fa-envelope"> </i> <a href="mailto:@Model.Email">@Model.Email</a> </p>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 centered-text">
+                    @Model.UyeHakkinda
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="row">
+                <div id="social-links" class=" col-lg-12">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-3 col-md-2 col-lg-3 social-btn-holder">
+                            <a title="google" class="btn btn-social btn-block btn-google" target="_BLANK" href="http://plus.google.com/+You/">
+                                <i class="fa fa-google"></i> +You
+                            </a>
+                        </div>
+                        <div class="col-xs-6 col-sm-3 col-md-2 col-lg-3 social-btn-holder">
+                            <a title="twitter" class="btn btn-social btn-block btn-twitter" target="_BLANK" href="http://twitter.com/yourid">
+                                <i class="fa fa-twitter"></i> /yourid
+                            </a>
+                        </div>
+                        <div class="col-xs-6 col-sm-3 col-md-2 col-lg-3 social-btn-holder">
+                            <a title="github" class="btn btn-social btn-block btn-github" target="_BLANK" href="http://github.com/yourid">
+                                <i class="fa fa-github"></i> /yourid
+                            </a>
+                        </div>
+                        <div class="col-xs-6 col-sm-3 col-md-2 col-lg-3 social-btn-holder">
+                            <a title="stackoverflow" class="btn btn-social btn-block btn-stackoverflow" target="_BLANK" href="http://stackoverflow.com/users/youruserid/yourid">
+                                <i class="fa fa-stack-overflow"></i> /yourid
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7e82dc5a38934f8e9ebe7891c4669cab" Name="Diagram1">
+        <EntityTypeShape EntityType="mvcblogModel.Bildirim" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="mvcblogModel.BildirimTur" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="mvcblogModel.Etiket" Width="1.5" PointX="8.25" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="mvcblogModel.Kategori" Width="1.5" PointX="6" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="mvcblogModel.Makale" Width="1.5" PointX="8.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="mvcblogModel.MakaleEtiket" Width="1.5" PointX="10.5" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="mvcblogModel.Mesaj" Width="1.5" PointX="5.25" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="mvcblogModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="mvcblogModel.Uye" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="mvcblogModel.UyeArkadas" Width="1.5" PointX="5.25" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="mvcblogModel.UyeEngelli" Width="1.5" PointX="5.25" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="mvcblogModel.Yetki" Width="1.5" PointX="0.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="mvcblogModel.Yorum" Width="1.5" PointX="10.5" PointY="6" IsExpanded="true" />
+        <AssociationConnector Association="mvcblogModel.FK_Bildirim_BildirimTur" ManuallyRouted="false" />
+        <AssociationConnector Association="mvcblogModel.FK_Bildirim_Uye" ManuallyRouted="false" />
+        <AssociationConnector Association="mvcblogModel.FK_MakaleEtiket_Etiket" ManuallyRouted="false" />
+        <AssociationConnector Association="mvcblogModel.FK_Makale_Kategori" ManuallyRouted="false" />
+        <AssociationConnector Association="mvcblogModel.FK_Makale_Uye" ManuallyRouted="false" />
+        <AssociationConnector Association="mvcblogModel.FK_MakaleEtiket_Makale" ManuallyRouted="false" />
+        <AssociationConnector Association="mvcblogModel.FK_Yorum_Makale" ManuallyRouted="false" />
+        <AssociationConnector Association="mvcblogModel.FK_Mesaj_AliciUye" ManuallyRouted="false" />
+        <AssociationConnector Association="mvcblogModel.FK_Mesaj_GondericiUye" ManuallyRouted="false" />
+        <AssociationConnector Association="mvcblogModel.FK_Uye_Yetki" ManuallyRouted="false" />
+        <AssociationConnector Association="mvcblogModel.FK_UyeArkadas_Uye1" ManuallyRouted="false" />
+        <AssociationConnector Association="mvcblogModel.FK_UyeArkadas_Uye2" ManuallyRouted="false" />
+        <AssociationConnector Association="mvcblogModel.FK_UyeEngelli_EngelliUye" ManuallyRouted="false" />
+        <AssociationConnector Association="mvcblogModel.FK_UyeEngelli_Uye" ManuallyRouted="false" />
+        <AssociationConnector Association="mvcblogModel.FK_Yorum_Uye" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="mvcblogModel.SifreSifirlama" Width="1.5" PointX="5.25" PointY="3.375" />
+        <AssociationConnector Association="mvcblogModel.FK_SifreSifirlama_Uye" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

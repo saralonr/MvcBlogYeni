@@ -1,0 +1,76 @@
+﻿@using GridMvc.Html
+@model List<MvcBlogYeni.Models.ORM.Makale>
+@{
+    ViewBag.Title = "Onay Bekleyen Makaleler Listesi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel-body">
+                <a href="/Admin/MakaleYeni/" class="btn btn-warning pull-left"><i class="fa fa-plus-circle" aria-hidden="true"></i> Yeni Makale</a>
+                <div class="text-center">
+                    @{
+                        if (TempData["makaleonaylandi"] != null)
+                        {
+                            <span class="alert alert-success btn-sm">@TempData["makaleonaylandi"]</span>
+                        }
+
+                        else if (TempData["makaleonayhatasi1"] != null)
+                        {
+                            <span class="alert alert-danger">@TempData["makaleonayhatasi1"]</span>
+                        }
+
+                        else if (TempData["makaleonayhatasi2"] != null)
+                        {
+                            <span class="alert alert-danger btn-sm">@TempData["makaleonayhatasi2"]</span>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" style="background-color:#e88417;color:#fff">
+                    <h3 class="panel-title"><i class="fa fa-bars fa-fw"></i> Onay Bekleyen Makalelere Ait Bilgiler</h3>
+                </div>
+                <div class="panel-body">
+                    @Html.Grid(Model).Columns(columns =>
+               {
+                   columns.Add(x => x.MakaleID).Titled("Makale ID");
+                   columns.Add(x => x.Baslik).Titled("Makale Adı");
+                   columns.Add(x => x.Kategori.KategoriAdi).Titled("Kategori Adı");
+                   columns.Add(x => x.Uye.KullaniciAdi).Titled("Yazar");
+                   columns.Add(x => x.Yorum.Count).Titled("Yorum Sayısı");
+                   columns.Add(x => x.OnayDurum).Titled("Onay Durumu");
+
+                   columns.Add()
+           .Encoded(false)
+           .Sanitized(false)
+           .SetWidth(80)
+           .RenderValueAs(o => Html.ActionLink("Sil", "MakaleSil", new { id = o.MakaleID }, new { @class = "btn btn-danger" }));
+
+                   columns.Add()
+          .Encoded(false)
+          .Sanitized(false)
+          .SetWidth(80)
+          .RenderValueAs(o => Html.ActionLink("Onay", "MakaleOnay", new { id = o.MakaleID }, new { @class = "btn btn-success" }));
+
+                   columns.Add()
+           .Encoded(false)
+           .Sanitized(false)
+           .SetWidth(80)
+           .RenderValueAs(o => Html.ActionLink("Detay", "MakaleDetay", new { id = o.MakaleID }, new { @class = "btn btn-default" }));
+
+               }).WithPaging(10)
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,14 @@
+﻿@model  List<MvcBlogYeni.Models.ORM.Makale>
+@{
+    Layout = null;
+}
+
+<div class="middlebar_content_inner wow fadeInUp">
+    <ul class="middlebar_nav">
+        @foreach (var item in Model)
+        {
+            <li><a class="mbar_thubnail" href="#"><img src="@item.Foto" alt=""></a> <a class="mbar_title" href="/Home/MakaleDetay/@item.MakaleID">@item.Baslik</a></li>
+        }
+    </ul>
+</div>
+

@@ -1,0 +1,59 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>404 Hatası</title>
+    <link href="~/Content/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Content/assets/css/font.css">
+    <style>
+        body {
+        }
+
+        .error-template {
+            padding: 40px 15px;
+            text-align: center;
+        }
+
+        .error-actions {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+            .error-actions .btn {
+                margin-right: 10px;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="error-template">
+                    <h1>
+                        Oops!
+                    </h1>
+                    <h2>
+                        404 Not Found
+                    </h2>
+                    <div class="error-details">
+                        Üzgünüz, böyle bir sayfa yok...Yazdığınız adresi gözden geçirin.
+                    </div>
+                    <div class="error-actions">
+                        <a href="/Home/Index/" class="btn btn-primary btn-lg">
+                            <span class="glyphicon glyphicon-home"></span>
+                            Anasayfa
+                        </a><a href="/Home/Index/" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-envelope"></span> Hatayı Bildir </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

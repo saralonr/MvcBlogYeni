@@ -1,0 +1,40 @@
+﻿@model IEnumerable<MvcBlogYeni.Models.ORM.Makale>
+
+@{
+    ViewBag.Title = "Arama Sonuçlarınız";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row" style="padding-right:2%;padding-left:2%">
+    <div class="panel panel-default">
+        <h2 class="blue_bg" style="float:left; width:100%; border-bottom:1px solid #e3e3e3; border-top:1px solid #e3e3e3; color:#fff; font-size:16px; font-weight:bold; margin:0; padding:5px 25px; line-height:32px">Arama Sonuçlarınız</h2>
+        <div class="panel-body">
+
+            <div class="esconde" id="opdRetro">
+                <table class="table table-striped table-hover ">
+                    <thead>
+                        <tr class="bg-primary">
+                            <th>Başlık</th>
+                            <th>Kategori</th>
+                            <th>Yazar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       @foreach (var item in Model)
+                       {
+                        <tr>
+
+                            <td><a href="/Home/MakaleDetay/@item.MakaleID">@item.Baslik</a></td>
+                            <td>@item.Kategori.KategoriAdi</td>
+                            <td><a href="/Uye/Index/@item.UyeID">@item.Uye.KullaniciAdi</a></td>
+
+                        </tr>
+                       }
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+</div>

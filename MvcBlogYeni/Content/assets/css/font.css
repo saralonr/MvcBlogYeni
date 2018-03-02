@@ -1,0 +1,16 @@
+@font-face {
+  font-family: 'Varela';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Varela'), url(../fonts/Varela-400.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Eddie';
+  src: url('../fonts/Eddie.eot?#iefix') format('embedded-opentype'), 
+  url('../fonts/Eddie.woff') format('woff'),
+  url('../fonts/Eddie.ttf')  format('truetype'),
+  url('../fonts/Eddie.svg#Eddie') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}

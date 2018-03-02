@@ -1,0 +1,149 @@
+﻿@model MvcBlogYeni.Models.ORM.Makale
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Yeni Makale</title>
+    <link href="~/Content/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/assets/css/font.css">
+    <link rel="stylesheet" href="~/Content/assets/css/animate.css">
+    <link rel="stylesheet" href="~/Content/assets/css/structure.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link href="~/Content/assets/css/bootstrap-tagsinput.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="preloader">
+        <div id="status">&nbsp;</div>
+    </div>
+    <a class="scrollToTop" href="#"><i class="fa fa-angle-up"></i></a>
+    <header id="header">
+        <div class="container">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                        <a class="navbar-brand" href="/Home/Index/"><span>Mvc</span>Blog</a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav custom_nav">
+                            <li class=""><a href="/Home/Index/">Anasayfa</a></li>
+
+
+
+                            @{
+                                if (Session["uyeid"] != null)
+                                {
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">@Session["kullaniciadi"]</a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="/Uye/Index/@Session["uyeid"]">Profil</a></li>
+                                            <li><a href="/Uye/Mesajlar/@Session["uyeid"]">Mesajlar</a></li>
+                                            @if (Convert.ToInt32(Session["yetkiid"]) == 1)
+                                            {
+                                                <li><a href="/Admin/Index/" target="_blank">Admin Paneli</a></li>
+                                            }
+                                            <li><a href="/Uye/Logout/">Çıkış</a></li>
+                                        </ul>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li><a href="/Uye/Login/">Üye Girişi</a></li>
+                                    <li><a class="yellow_bg" href="/Uye/Create/">Üye Kayıt</a></li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            @Html.Partial("BlogAraPartial")
+        </div>
+    </header>
+    <section id="contentbody">
+        <div class="container" style="width:70%">
+            <div class="row">
+
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="row">
+                        <div class="panel panel-default" style="margin:20px">
+                            <h2 class="blue_bg" style="float:left; width:100%; border-bottom:1px solid #e3e3e3; border-top:1px solid #e3e3e3; color:#fff; font-size:16px; font-weight:bold; margin:0; padding:5px 25px; line-height:32px">Yeni Makale</h2>
+                            <div class="panel-body"  >
+                                <div class="row main" style="padding:30px;margin-top:40px">
+                                    @using (Html.BeginForm("YeniMakale", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <form>
+
+                                            <div class="form-group">
+                                                <label for="title">Başlık <span class="require">*</span> <small>(Bu alan gerekli)</small></label>
+                                                <input type="text" class="form-control" name="Baslik"/>
+                                                @*<span class="help-block">Field not entered!</span>*@
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="title">Kategoriler <span class="require">*</span><small>(Bu alan gerekli)</small></label>
+                                                <select class="form-control" name="KategoriID" id="KategoriID" style="width:300px!important">
+                                                    @foreach (var item in ViewBag.Kategoriler)
+                                                    {
+                                                        <option value="@item.Value">@item.Text</option>
+                                                    }
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="title">Fotoğraf <span class="require">*</span><small>(Bu alan gerekli)</small></label>
+                                                <input type="file" class="form-control" name="Fotograf" id="Fotograf" accept=".jpeg,.png,.gif,.jpg,.JPEG" />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="title">İçerik <span class="require">*</span><small>(Bu alan gerekli)</small></label>
+                                                @Html.EditorFor(model => model.Icerik, null, new { @class = "form-control" })
+                                                @*<input type="text" class="form-control" name="Icerik" />*@
+                                            </div>
+
+                                            <div class="form-group" style="margin-top:30px">
+                                                <label for="title">Etiketler</label>
+                                                <input type="text" data-role="tagsinput" class="bootstrap-tagsinput" name="etiketler" />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <p><span class="require">*</span> - gerekli alanlar</p>
+                                            </div>
+
+                                            @if (TempData["fotoboyutbuyuk"] != null)
+                                            {
+                                                    <div style="margin:20px" class="alert alert-danger"><span style="font-size:12px">@TempData["fotoboyutbuyuk"]</span></div>
+                                            }
+
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary pull-left btn-lg">
+                                                    Oluştur
+                                                </button>
+                                                <a href="/Home/Index/" class="btn btn-default pull-right btn-lg">
+                                                    Geri Dön
+                                                </a>
+                                            </div>
+
+                                        </form>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="~/Content/assets/js/jquery.min.js"></script>
+    <script src="~/Content/assets/js/bootstrap.min.js"></script>
+    <script src="~/Content/assets/js/wow.min.js"></script>
+    <script src="~/Content/assets/js/custom.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script src="~/Content/assets/js/bootstrap-tagsinput.min.js"></script>
+</body>
+</html>

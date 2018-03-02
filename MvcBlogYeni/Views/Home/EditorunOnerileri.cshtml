@@ -1,0 +1,18 @@
+﻿@model List<MvcBlogYeni.Models.ORM.Makale>
+
+@{ 
+    Layout = null;
+}
+
+ <div class="single_blog_sidebar wow fadeInUp">
+    <h2>Editörün Önerileri</h2>
+    <ul class="featured_nav">
+        @foreach (var item in Model)
+        {
+            <li>
+                <a class="featured_img" href="#"><img src="@item.Foto" alt=""></a>
+                <div class="featured_title"> <a class="" href="/Home/MakaleDetay/@item.MakaleID">@item.Baslik</a> </div>
+            </li>
+        }
+    </ul>
+</div> 

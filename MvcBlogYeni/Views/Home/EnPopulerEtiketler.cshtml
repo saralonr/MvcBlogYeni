@@ -1,0 +1,14 @@
+﻿@model IEnumerable<MvcBlogYeni.Models.DTO.DTOEtiket>
+@{ 
+    Layout = null;
+}
+
+<div class="single_blog_sidebar wow fadeInUp">
+    <h2>Popüler Etiketler</h2>
+    <ul class="poplr_tagnav">
+        @foreach (var item in Model)
+        {
+            <li><a href="#">@item._EtiketAdi</a></li>
+        }
+    </ul>
+</div>

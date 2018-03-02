@@ -1,0 +1,39 @@
+﻿@model MvcBlogYeni.Models.ORM.Kategori
+@{
+    ViewBag.Title = Model.KategoriAdi+" Kategorisi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="panel panel-default" style="margin:20px;width:500px;margin:0 auto!important">
+            <div class="panel-heading" style="background-color:#1259b0;color:#fff">
+                <div style="text-align:center;font-weight:bold">Yeni Kategori</div>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("KategoriDuzenle", "Admin", FormMethod.Post, new { enctype = "multipart/form-data",id=Model.KategoriID }))
+                {
+                    @Html.AntiForgeryToken()
+                    <form>
+                        <div class="form-group">
+                            <label for="title">Kategori ID</label>
+                            <input type="text" class="form-control" name="KategoriID" value="@Model.KategoriID" disabled />
+                        </div>
+                        <div class="form-group">
+                            <label for="title">Kategori Adı </label>
+                            <input type="text" class="form-control" name="KategoriAdi" placeholder="Bir Kategori Adı Yazınız" value="@Model.KategoriAdi" />
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary pull-left btn-lg">
+                                Kaydet
+                            </button>
+                            <a href="/Admin/Kategoriler/" class="btn btn-danger pull-right btn-lg">İptal</a><br /><br />
+                        </div>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

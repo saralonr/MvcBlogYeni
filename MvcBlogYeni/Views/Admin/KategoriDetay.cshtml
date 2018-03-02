@@ -1,0 +1,51 @@
+﻿@using GridMvc.Html
+@model List<MvcBlogYeni.Models.ORM.Makale>
+@{
+    ViewBag.Title = ViewBag.KategoriMakaleleri.KategoriAdi+" Kategorisinin Makaleleri";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <a href="/Admin/Kategoriler/" class="btn btn-default pull-left"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Geri Dön</a><br /><br />
+            <div class="panel panel-default">
+                <div class="panel-heading" style="background-color:#e88417;color:#fff">
+                    <h3 class="panel-title"><i class="fa fa-bars fa-fw"></i> Kategorilere Ait Makaleler</h3>
+                </div>
+                <div class="panel-body">
+                    @Html.Grid(Model).Columns(columns =>
+               {
+                   columns.Add(x=>x.Baslik).Titled("Makale Adı");
+                   columns.Add(x => x.Kategori.KategoriAdi).Titled("Kategori Adı");
+                   columns.Add(x => x.Tarih).Titled("Tarih");
+                   columns.Add(x => x.Uye.KullaniciAdi).Titled("Yazar Adı");
+                   columns.Add(x => x.Yorum.Count).Titled("Yorum Sayısı");
+                   columns.Add(x => x.Okunma).Titled("Okunma Sayısı");
+                   columns.Add(x => x.OnayDurum).Titled("Yayında Mı");
+                   columns.Add()
+    .Encoded(false)
+    .Sanitized(false)
+    .SetWidth(80)
+    .RenderValueAs(o => Html.ActionLink("Düzenle", "MakaleDuzenle", new { id = o.KategoriID }, new { @class = "btn btn-primary" }));
+
+                   columns.Add()
+    .Encoded(false)
+    .Sanitized(false)
+    .SetWidth(80)
+    .RenderValueAs(o => Html.ActionLink("Sil", "MakaleSil", new { id = o.KategoriID }, new { @class = "btn btn-danger" }));
+
+                   columns.Add()
+    .Encoded(false)
+    .Sanitized(false)
+    .SetWidth(50)
+    .RenderValueAs(o => Html.ActionLink("Dty", "MakaleDetay", new { id = o.MakaleID }, new { @class = "btn btn-default" }));
+               }).WithPaging(10)
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
